@@ -5,7 +5,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class TraditionalTimer {
-
+	
+	private static int count = 0;
+	
 	public static void main(String[] args) {
 		/*
 		 * new Timer().schedule(new TimerTask() {
@@ -28,11 +30,12 @@ public class TraditionalTimer {
 		 * } }, 2000);
 		 */
 		class MyTimerTask extends TimerTask {
-
+			
 			@Override
 			public void run() {
+				count = (count+1)%2;
 				System.out.println("boom");
-				new Timer().schedule(new MyTimerTask(), 2000);
+				new Timer().schedule(new MyTimerTask(), 2000+2000*count);
 			}
 
 		}
