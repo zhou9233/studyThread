@@ -1,8 +1,9 @@
 package cn.zz.test1;
 
-public class TraditionalThreadSyn2 {
+
+public class TraditionalThreadSyn3class {
 	public static void main(String[] args) {
-		new TraditionalThreadSyn2().init();
+		new TraditionalThreadSyn3class().init();
 	}
 
 	public void init() {
@@ -33,7 +34,7 @@ public class TraditionalThreadSyn2 {
 					 * { // TODO Auto-generated catch block e.printStackTrace();
 					 * }
 					 */
-					outer.log("lining");
+					outer.log2("lining");
 
 				}
 
@@ -41,16 +42,25 @@ public class TraditionalThreadSyn2 {
 		}).start();
 	}
 
-	// 互斥 同一个对象
-	class Outer {
+	// 互斥 同一个对象 类
+	static class Outer {
 		//直接在方法上加互斥也可以
-		public synchronized void log(String log) {
+		public  void log(String log) {
+			synchronized (Outer.class) {
+				for (int i = 0; i < log.length(); i++) {
+					System.out.print(log.charAt(i));
+				}
+				System.out.println();
+			}
+			
+
+		}
+		public static synchronized void log2(String log) {
 			for (int i = 0; i < log.length(); i++) {
 				System.out.print(log.charAt(i));
 			}
 			System.out.println();
 
 		}
-		
 	}
 }
