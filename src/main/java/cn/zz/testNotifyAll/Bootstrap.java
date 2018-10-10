@@ -5,6 +5,7 @@ import java.io.IOException;
 public class Bootstrap {
 	public static void main(String[] args) {
 		HttpConnector connector = new HttpConnector();
+		connector.initialize();
 		connector.start();
 		/*try {
 			Thread.sleep(10000);

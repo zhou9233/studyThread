@@ -1,5 +1,6 @@
 package cn.zz.testNotifyAll;
 
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class HttpProcessor implements Runnable {
@@ -11,6 +12,11 @@ public class HttpProcessor implements Runnable {
 	private boolean available = false;
 	
 	private HttpConnector connector = null;
+
+	/**
+	 * The server socket through which we listen for incoming TCP connections.
+	 */
+	private ServerSocket serverSocket = null;
 
 	public HttpProcessor(HttpConnector connector, int id) {
 		this.connector = connector;
