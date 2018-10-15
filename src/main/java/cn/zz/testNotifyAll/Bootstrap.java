@@ -3,7 +3,7 @@ package cn.zz.testNotifyAll;
 import java.io.IOException;
 
 public class Bootstrap {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		HttpConnector connector = new HttpConnector();
 		connector.initialize();
 		connector.start();

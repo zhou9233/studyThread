@@ -41,8 +41,10 @@ public class FileCopy extends Thread {
                 //获取已下载的大小，并且转换成百分比
                 temp += length;
                 double d = temp/len;
+                System.out.print(Thread.currentThread().getName()+" ");
                 System.out.println(src.getName()+"已复制的进度："+df.format(d));
             }
+            System.out.print(Thread.currentThread().getName()+" ");
             System.out.println(src.getName()+"复制完成！");
             
         } catch (FileNotFoundException e) {
