@@ -48,9 +48,9 @@ public class TimeClient
 
 	public TimeClient (String [] argv) throws Exception
 	{
-		if (argv.length == 0) {
+		/*if (argv.length == 0) {
 			throw new Exception ("Usage: [ -p port ] host ...");
-		}
+		}*/
 
 		parseArgs (argv);
 
@@ -199,7 +199,10 @@ public class TimeClient
 	public static void main (String [] argv)
 		throws Exception
 	{
-		TimeClient client = new TimeClient (argv);
+		String[] test = new String[2];
+		test[0] = "127.0.0.1";
+		test[1] = "127.0.0.1";
+		TimeClient client = new TimeClient (test);
 
 		client.sendRequests();
 		client.getReplies();

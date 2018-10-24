@@ -1,10 +1,11 @@
 package cn.zz.NIO.channels;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
-import java.io.RandomAccessFile;
 import java.util.Random;
 
 /**
@@ -21,11 +22,10 @@ import java.util.Random;
  * @version $Id: LockTest.java,v 1.2 2002/05/19 04:55:45 ron Exp $
  */
 /*
-	代码使用共享锁实现了 reader 进程，使用独占锁实现了 writer 进程，图 1-7 和图 1-8
-对此有诠释。由于锁是与进程而不是 Java 线程关联的，您将需要运行该程序的多个拷贝。先从一
-个 writer 和两个或更多的 readers 开始，我们来看下不同类型的锁是如何交互的。
+	开两个线程请求锁
+	通过测试锁只和文件相关
  */
-public class LockTest
+public class LockTest3
 {
     private static final int SIZEOF_INT = 4;
 	private static final int INDEX_START = 0;
@@ -57,14 +57,42 @@ public class LockTest
 		RandomAccessFile raf = new RandomAccessFile (filename,
 			(writer) ? "rw" : "r");
 		FileChannel fc = raf.getChannel();
-
-		LockTest lockTest = new LockTest();
+		FileLock lock = fc.lock (INDEX_START,
+				10, false);
+		//在同一进程内，请求独占锁，会抛出异常
+		/*new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					FileLock lock2 = fc.lock (INDEX_START,
+                            INDEX_SIZE, false);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();*/
+		RandomAccessFile raf2 = new RandomAccessFile (filename,
+				(writer) ? "rw" : "r");
+		FileChannel fc2 = raf2.getChannel();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					FileLock lock2 = fc2.lock (10,
+							INDEX_SIZE, false);
+					System.out.println("共享锁");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		/*LockTest3 lockTest = new LockTest3();
 
 		if (writer) {
 			lockTest.doUpdates (fc);
 		} else {
 			lockTest.doQueries (fc);
-		}
+		}*/
 	}
 
 	// ----------------------------------------------------------------

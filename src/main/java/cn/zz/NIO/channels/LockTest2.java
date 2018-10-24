@@ -1,10 +1,10 @@
 package cn.zz.NIO.channels;
 
+import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
-import java.io.RandomAccessFile;
 import java.util.Random;
 
 /**
@@ -25,11 +25,10 @@ import java.util.Random;
 对此有诠释。由于锁是与进程而不是 Java 线程关联的，您将需要运行该程序的多个拷贝。先从一
 个 writer 和两个或更多的 readers 开始，我们来看下不同类型的锁是如何交互的。
  */
-public class LockTest
+public class LockTest2
 {
     private static final int SIZEOF_INT = 4;
 	private static final int INDEX_START = 0;
-	private int WRITE_START = 0;
 	private static final int INDEX_COUNT = 10;
 	private static final int INDEX_SIZE = INDEX_COUNT * SIZEOF_INT;
 
@@ -58,7 +57,7 @@ public class LockTest
 			(writer) ? "rw" : "r");
 		FileChannel fc = raf.getChannel();
 
-		LockTest lockTest = new LockTest();
+		LockTest2 lockTest = new LockTest2();
 
 		if (writer) {
 			lockTest.doUpdates (fc);
@@ -143,7 +142,7 @@ public class LockTest
 		// leaves position and limit correct for whole buffer
 		buffer.clear();
 		fc.write (buffer, INDEX_START);
-		System.out.println("lockTest");
+		System.out.println("lockTest1");
 	}
 
 	// ----------------------------------------------------------------

@@ -35,9 +35,23 @@ public class SelectTest
 
 		ssc.socket().bind (new InetSocketAddress (PORT_NUMBER));
 		ssc.configureBlocking (false);
-		ssc.register (selector, SelectionKey.OP_ACCEPT);
-
+		// selector.keys() 返回已经注册过的键，不能修改已注册的键
+		// register()方法的第二个参数是“interest集合”，表示选择器所关心的通道操作，
+		// 它实际上是一个表示选择器在检查通道就绪状态时需要关心的操作的比特掩码
+		// 需要注意并非所有的操作在所有的可选择通道上都能被支持，
+		// 比如ServerSocketChannel支持Accept，而SocketChannel中不支持。
+		// 我们可以通过通道上的validOps()方法来获取特定通道下所有支持的操作集合。
+		SelectionKey keyTest = ssc.register (selector, SelectionKey.OP_ACCEPT);
+		//interest集合是Selector感兴趣的集合，用于指示选择器对通道关心的操作
+		int interestSet = keyTest.interestOps();
+		//read集合是通道已经就绪的操作的集合，表示一个通道准备好要执行的操作了
+		int readSet = keyTest.readyOps();
 		while (true) {
+			//在刚初始化的Selector对象中，这三个集合都是空的。
+			// 通过Selector的select（）方法可以选择已经准备就绪的通道（这些通道包含你感兴趣的的事件）。
+			// 比如你对读就绪的通道感兴趣，那么select（）方法就会返回读事件已经就绪的那些通道
+			//select()方法返回的int值表示有多少通道已经就绪,是自上次调用select()方法后有多少通道变成就绪状态
+			//例如：首次调用select()方法，如果有一个通道变成就绪状态，返回了1，若再次调用select()方法，如果另一个通道就绪了，它会再次返回1
 			int n = selector.select (1000);
 
 			System.out.println ("selector returns: " + n);

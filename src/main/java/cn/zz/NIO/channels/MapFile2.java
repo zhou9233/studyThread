@@ -1,10 +1,10 @@
 package cn.zz.NIO.channels;
 
+import java.io.File;
+import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.io.File;
-import java.io.RandomAccessFile;
 
 /**
  * Test behavior of Memory mapped buffer types.  Create a file, write
@@ -17,7 +17,7 @@ import java.io.RandomAccessFile;
  * @author Ron Hitchens (ron@ronsoft.com)
  * @version $Id: MapFile.java,v 1.3 2002/05/20 07:24:29 ron Exp $
  */
-public class MapFile
+public class MapFile2
 {
     public static void main (String [] argv)
 		throws Exception
@@ -67,7 +67,7 @@ public class MapFile
 		rw.put (" R/W ".getBytes());
 		rw.position (8194);
 		rw.put (" R/W ".getBytes());
-		rw.force();
+		//rw.force();
 
 		System.out.println ("Change to R/W buffer");
 		showBuffers (ro, rw, cow);
@@ -87,7 +87,7 @@ public class MapFile
 		cow.position (8207);
 		cow.put (" COW2 ".getBytes());
 		//cow force无效，写拷贝不会真的写
-		cow.force();
+		//cow.force();
 
 		System.out.println ("Second change to COW buffer");
 		showBuffers (ro, rw, cow);
@@ -105,7 +105,7 @@ public class MapFile
 		// cleanup
 		channel.close();
 		file.close();
-		tempFile.delete();
+		System.out.println(tempFile.delete());
 	}
 
 	// show the current content of the three buffers

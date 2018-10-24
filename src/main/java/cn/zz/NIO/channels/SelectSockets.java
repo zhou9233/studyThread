@@ -7,7 +7,6 @@ import java.nio.channels.Selector;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SelectableChannel;
 
-import java.net.Socket;
 import java.net.ServerSocket;
 import java.net.InetSocketAddress;
 import java.util.Iterator;

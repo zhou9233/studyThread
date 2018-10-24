@@ -17,12 +17,8 @@ public class LockBug
     public static void main (String [] argv)
 		throws Exception
 	{
-		if (argv.length == 0) {
-			System.out.println ("Usage: filename");
-			return;
-		}
 
-		String filename = argv [0];
+		String filename = "C:\\\\Users\\\\Administrator\\\\Desktop\\\\websocketBim\\\\1441795\\\\testlo";
 
 		RandomAccessFile raf = new RandomAccessFile (filename, "rw");
 		FileChannel fc = raf.getChannel();

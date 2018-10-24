@@ -20,12 +20,10 @@ public class ChannelTransfer
     public static void main (String [] argv)
 		throws Exception
 	{
-		if (argv.length == 0) {
-			System.err.println ("Usage: filename ...");
-			return;
-		}
-
-		catFiles (Channels.newChannel (System.out), argv);
+		String[] strings = new String[2];
+		strings[0] = "C:\\\\Users\\\\Administrator\\\\Desktop\\\\websocketBim\\\\1441795\\\\MappedHttp.out";
+		strings[1] = "C:\\\\Users\\\\Administrator\\\\Desktop\\\\websocketBim\\\\1441795\\\\testMap";
+		catFiles (Channels.newChannel (System.out), strings);
 	}
 
 	// Concatenate the content of each of the named files to

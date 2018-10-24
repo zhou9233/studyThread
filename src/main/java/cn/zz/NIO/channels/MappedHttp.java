@@ -23,7 +23,7 @@ import java.net.URLConnection;
  */
 public class MappedHttp
 {
-    private static final String OUTPUT_FILE = "MappedHttp.out";
+    private static final String OUTPUT_FILE = "C:\\\\Users\\\\Administrator\\\\Desktop\\\\websocketBim\\\\1441795\\\\MappedHttp.out";
 
 	private static final String LINE_SEP = "\r\n";
 	private static final String SERVER_ID = "Server: Ronsoft Dummy Server";
@@ -36,12 +36,8 @@ public class MappedHttp
 	public static void main (String [] argv)
 		throws Exception
 	{
-		if (argv.length < 1) {
-			System.err.println ("Usage: filename");
-			return;
-		}
 
-		String file = argv [0];
+		String file = "C:\\\\Users\\\\Administrator\\\\Desktop\\\\websocketBim\\\\1441795\\\\testMap2";
 		ByteBuffer header = ByteBuffer.wrap (bytes (HTTP_HDR));
 		ByteBuffer dynhdrs = ByteBuffer.allocate (128);
 		ByteBuffer [] gather = { header, dynhdrs, null };
