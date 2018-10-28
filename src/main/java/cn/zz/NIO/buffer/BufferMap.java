@@ -9,12 +9,12 @@ public class BufferMap
     public static void main (String [] argv)
 		throws Exception
 	{
-		if (argv.length < 1) {
+		/*if (argv.length < 1) {
 			System.out.println ("Need a file name");
 			return;
-		}
-
-		RandomAccessFile raf = new RandomAccessFile (argv [0], "r");
+		}*/
+		String fileName = "C:\\Users\\Administrator\\Desktop\\websocketBim\\test";
+		RandomAccessFile raf = new RandomAccessFile (fileName, "r");
 		FileChannel fc = raf.getChannel();
 		MappedByteBuffer buffer = fc.map (
 			FileChannel.MapMode.READ_ONLY, 0, fc.size());

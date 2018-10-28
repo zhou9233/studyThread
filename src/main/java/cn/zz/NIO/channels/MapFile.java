@@ -23,7 +23,7 @@ public class MapFile
 		throws Exception
 	{
 		// create a temp file and get a channel connected to it
-		File tempFile = new File("C:\\\\Users\\\\Administrator\\\\Desktop\\\\websocketBim\\\\1441795\\\\testMap");
+		File tempFile = new File("C:\\Users\\Administrator\\Desktop\\websocketBim\\test2");
 
 		RandomAccessFile file = new RandomAccessFile (tempFile, "rw");
 		FileChannel channel = file.getChannel();
