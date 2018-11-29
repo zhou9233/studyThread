@@ -81,8 +81,8 @@ public class SelectSockets
 
 					registerChannel (selector, channel,
 						SelectionKey.OP_READ);
-
 					sayHello (channel);
+
 				}
 
 				// is there data to read on this channel?
