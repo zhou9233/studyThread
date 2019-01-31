@@ -4,7 +4,7 @@
 package cn.zz.threadConcurrent.chapter05;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.AbstractQueuedSynchronizer;
+//import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
@@ -34,6 +34,30 @@ public class TwinsLock implements Lock {
             }
         }
 
+        public boolean tryAcquire(int reduceCount) {
+            for (;;) {
+                int current = getState();
+                int newCount = current - reduceCount;
+                if (newCount >= 0 || compareAndSetState(current, newCount)) {
+                    return true;
+                }
+                if (newCount < 0 || compareAndSetState(current, newCount)) {
+                    return false;
+                }
+            }
+        }
+
+        public boolean tryRelease(int returnCount) {
+            for (;;) {
+                int current = getState();
+                int newCount = current + returnCount;
+                if (compareAndSetState(current, newCount)) {
+                    return true;
+                }
+            }
+        }
+
+
         public boolean tryReleaseShared(int returnCount) {
             for (;;) {
                 int current = getState();
@@ -50,11 +74,17 @@ public class TwinsLock implements Lock {
     }
 
     public void lock() {
+        //共享式
         sync.acquireShared(1);
+        //独占式
+        //sync.acquire(1);
     }
 
     public void unlock() {
+        //共享式
         sync.releaseShared(1);
+        //独占式
+        //sync.release(1);
     }
 
     public void lockInterruptibly() throws InterruptedException {

@@ -17,6 +17,11 @@ public class FairAndUnfairTest {
     private static Lock           unfairLock = new ReentrantLock2(false);
     private static CountDownLatch start;
 
+    public static void main(String[] args) {
+        FairAndUnfairTest fairAndUnfairTest = new FairAndUnfairTest();
+        fairAndUnfairTest.fair();
+    }
+
     public void fair() {
         testLock(fairLock);
     }

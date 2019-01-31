@@ -16,6 +16,8 @@ import java.util.UUID;
 public class ConcurrentPutHashMap {
 
     public static void main(String[] args) throws InterruptedException {
+        ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap<String,String>(15);
+        concurrentHashMap.put("123","test");
         final HashMap<String, String> map = new HashMap<String, String>(2);
         Thread t = new Thread(new Runnable() {
             @Override
